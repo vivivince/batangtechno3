@@ -1,0 +1,307 @@
+
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents an individual user within the Batang Techno application, primarily for administrative and judging roles. Authentication details are managed externally.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the User entity."
+        },
+        "externalAuthId": {
+          "type": "string",
+          "description": "Reference to the unique identifier from the external authentication system used to identify this user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user, primarily used for communication and identification.",
+          "format": "email"
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique username for the user."
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the user for display purposes."
+        },
+        "role": {
+          "type": "string",
+          "description": "The assigned role of the user within the application (e.g., 'admin', 'judge')."
+        },
+        "judgedEntries": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of entry IDs the judge has evaluated."
+        },
+        "projectManagementNomination": {
+          "type": "string",
+          "description": "The entry ID nominated for the Ask Lex PH Academy Award (exclusive to specific judge)."
+        }
+      },
+      "required": [
+        "id",
+        "externalAuthId",
+        "email",
+        "name",
+        "role"
+      ]
+    },
+    "Challenge": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Challenge",
+      "type": "object",
+      "description": "Defines the thematic categories or challenges that hackathon entries can belong to.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Challenge entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The official name of the hackathon challenge category (e.g., 'SMART MOBILITY AND TRANSPORTATION')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed explanation or scope of what the challenge entails."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
+    },
+    "ProgrammingWinner": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ProgrammingWinner",
+      "type": "object",
+      "description": "Represents a winner of the programming challenge.",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "school": { "type": "string" },
+        "pictureUrl": { "type": "string", "format": "uri" },
+        "schoolLogoUrl": { "type": "string", "format": "uri" },
+        "place": { "type": "number", "enum": [1, 2, 3] },
+        "category": { "type": "string", "enum": ["HIGH_SCHOOL", "COLLEGE"] }
+      },
+      "required": ["id", "name", "school", "pictureUrl", "schoolLogoUrl", "place", "category"]
+    },
+    "Entry": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Entry",
+      "type": "object",
+      "description": "Represents a submitted hackathon entry or project by a team.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Entry entity."
+        },
+        "projectName": {
+          "type": "string",
+          "description": "The official name of the hackathon project."
+        },
+        "teamName": {
+          "type": "string",
+          "description": "The name of the team that submitted this entry."
+        },
+        "projectMembers": {
+          "type": "array",
+          "description": "A list of individual members of the project team, including their school details.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "school": { "type": "string" },
+              "schoolLogoUrl": { "type": "string", "format": "uri" }
+            },
+            "required": ["name", "school"]
+          }
+        },
+        "googleDriveVideoLink": {
+          "type": "string",
+          "description": "A Google Drive link to the project's video presentation.",
+          "format": "uri"
+        },
+        "githubLink": {
+          "type": "string",
+          "description": "A link to the project's GitHub repository.",
+          "format": "uri"
+        },
+        "thumbnailImageUrl": {
+          "type": "string",
+          "description": "A URL to an image file used as a thumbnail.",
+          "format": "uri"
+        },
+        "pitchDeckLink": {
+          "type": "string",
+          "description": "A URL to the finalist pitch deck.",
+          "format": "uri"
+        },
+        "projectDescription": {
+          "type": "string",
+          "description": "A comprehensive description of the hackathon project."
+        },
+        "challengeId": {
+          "type": "string",
+          "description": "Reference to the Challenge entity."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "The date and time when the entry was officially submitted.",
+          "format": "date-time"
+        },
+        "overallScore": {
+          "type": "number",
+          "description": "The aggregated final score."
+        },
+        "finalRank": {
+          "type": "number",
+          "description": "The final ranking."
+        },
+        "adminApproved": {
+          "type": "boolean",
+          "description": "Indicates if an admin has approved the entry."
+        },
+        "top10Published": {
+          "type": "boolean",
+          "description": "Indicates if the entry is part of the published Top 12 finalists."
+        },
+        "top3Published": {
+          "type": "boolean",
+          "description": "Indicates if the entry is part of the published Top 3 winners."
+        },
+        "isPeoplesChoice": { "type": "boolean" },
+        "awardProblemFit": { "type": "boolean" },
+        "awardTechExecution": { "type": "boolean" },
+        "awardInnovationImpact": { "type": "boolean" },
+        "awardPresentation": { "type": "boolean" },
+        "awardUiux": { "type": "boolean" },
+        "awardSustainability": { "type": "boolean" },
+        "awardProjectManagement": { "type": "boolean" }
+      },
+      "required": [
+        "id",
+        "teamName",
+        "projectName",
+        "projectMembers",
+        "googleDriveVideoLink",
+        "githubLink",
+        "thumbnailImageUrl",
+        "projectDescription",
+        "challengeId",
+        "submissionDate",
+        "adminApproved"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores general user profile information.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique ID of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "A dedicated collection for 'admin' roles.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The unique ID of the administrator."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_judge/{judgeId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "A dedicated collection for 'judge' roles.",
+          "params": [
+            {
+              "name": "judgeId",
+              "description": "The unique ID of the judge."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/challenges/{challengeId}",
+        "definition": {
+          "entityName": "Challenge",
+          "schema": {
+            "$ref": "#/backend/entities/Challenge"
+          },
+          "description": "Stores definitions of hackathon challenges.",
+          "params": [
+            {
+              "name": "challengeId",
+              "description": "The unique ID of the challenge."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/programming_winners/{winnerId}",
+        "definition": {
+          "entityName": "ProgrammingWinner",
+          "schema": {
+            "$ref": "#/backend/entities/ProgrammingWinner"
+          },
+          "description": "Stores winners of the programming challenge.",
+          "params": [
+            {
+              "name": "winnerId",
+              "description": "The unique ID of the winner."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/entries/{entryId}",
+        "definition": {
+          "entityName": "Entry",
+          "schema": {
+            "$ref": "#/backend/entities/Entry"
+          },
+          "description": "Stores hackathon entries.",
+          "params": [
+            {
+              "name": "entryId",
+              "description": "The unique ID of the hackathon entry."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

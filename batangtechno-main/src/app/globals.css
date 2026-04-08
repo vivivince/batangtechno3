@@ -1,0 +1,76 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 210 100% 20%; /* #003366 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 13%; /* #222222 */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 210 100% 60%; /* #3399FF */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 40%; /* #666666 */
+    --input: 0 0% 20%;
+    --ring: 210 100% 60%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased selection:bg-accent/30 selection:text-accent;
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(0, 51, 102, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 10% 20%, rgba(51, 153, 255, 0.05) 0%, transparent 30%);
+    background-attachment: fixed;
+  }
+}
+
+.glass-card {
+  @apply bg-card/60 backdrop-blur-md border border-border/50 shadow-xl;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.glow-accent {
+  text-shadow: 0 0 10px rgba(51, 153, 255, 0.5);
+}
+
+.glow-border {
+  box-shadow: 0 0 15px rgba(51, 153, 255, 0.3);
+}
+
+.star-twinkle {
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full hover:bg-accent/50 transition-colors;
+}
